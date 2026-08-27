@@ -4,11 +4,15 @@
     <vendor email="user@example.com" url="http://www.example.com">Example</vendor>
 
     <description><![CDATA[
-      Provides a standalone action to save the word under the caret to the project-level dictionary.
+      Provides a standalone action to save the word under the caret to the application-level dictionary.
       You can assign a keyboard shortcut to this action in Keymap settings under "Plugins".
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="SaveTypoToDictionary" displayType="BALLOON"/>
+    </extensions>
 
     <actions>
         <action id="SaveTypoToDictionaryAction"

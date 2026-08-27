@@ -1,9 +1,12 @@
 package com.example.savetypo
 
+import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer
+import com.intellij.notification.NotificationGroupManager
+import com.intellij.notification.NotificationType
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
-import com.intellij.spellchecker.SpellCheckerManager
+import com.intellij.spellchecker.state.AppDictionaryState
 
 class SaveTypoToDictionaryAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
@@ -30,8 +33,16 @@ class SaveTypoToDictionaryAction : AnAction() {
         if (start < end) {
             val word = text.subSequence(start, end).toString()
 
-            // Add the word to the project-level dictionary
-            SpellCheckerManager.getInstance(project).acceptWordAsCorrect(word, project)
+            // Add the word to the application-level dictionary
+            AppDictionaryState.getInstance().dictionary.addToDictionary(word)
+
+            // Re-run inspections so the misspelling underline disappears immediately
+            DaemonCodeAnalyzer.getInstance(project).restart()
+
+            NotificationGroupManager.getInstance()
+                .getNotificationGroup("SaveTypoToDictionary")
+                .createNotification("Added \"$word\" to the dictionary", NotificationType.INFORMATION)
+                .notify(project)
         }
     }
 
