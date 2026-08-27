@@ -1,7 +1,7 @@
 <idea-plugin>
-    <id>com.example.savetypo</id>
+    <id>io.github.virlatinus.savetypotodictionary</id>
     <name>Save Typo to Dictionary Action</name>
-    <vendor email="user@example.com" url="http://www.example.com">Example</vendor>
+    <vendor email="virlatinus@gmail.com" url="https://github.com/virlatinus">Werner Garcia</vendor>
 
     <description><![CDATA[
       Provides a standalone action to save the word under the caret to the application-level dictionary.
